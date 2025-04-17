@@ -48,11 +48,50 @@
 }
 .table_layout{
     display: grid;
-    grid-template-columns: 0.5fr 1fr 1fr 1fr 1.5fr;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1.5fr;
     padding: 15px 20px;
     align-items: center;
     border-bottom: 1px solid #ccc;
 }
 .marketCap{
     text-align: right;
+}
+.table_layout:last-child{
+    border:none;
+}
+.table_layout div{
+    display: flex;
+    align-items: center;
+    gap:10px;
+
+}
+.table_layout img{
+    width: 30px;
+}
+.table_layout .green{
+    color:#28A745;
+    text-align: center;
+}
+.table_layout .red{
+    color:#DC3545;
+    text-align: center;
+}
+@media (max-width: 768px) {
+    .table_layout{
+        grid-template-columns: 0.5fr 3fr 1fr 1fr;
+    }
+    .marketCap{
+        display: none;
+    }
+}
+@media (max-width: 480px) {
+    .table_layout div img{
+        width: 20px;
+    }
+    .table_layout {
+        font-size:13px;
+    }
+    .hero form input{
+        width: 100px;
+    }
 }
