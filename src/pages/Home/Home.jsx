@@ -1,6 +1,8 @@
 import React from 'react'
 import './Home.css'
 import { CoinContext } from '../../context/CoinContext'
+import {Link} from 'react-router-dom';
+
 const Home = () => {
 
   const {coins,currency}=React.useContext(CoinContext);
@@ -35,7 +37,19 @@ const Home = () => {
       <div className="hero">
         <h1>Cryptocurrency Prices by Market Cap</h1>
         <form onSubmit={searchHandler}>
-          <input onChange={inputHandler} value={input} type="text" placeholder='Search' required/>
+
+          <input onChange={inputHandler} list='coins' value={input} type="text" placeholder='Search' required/>
+
+          <datalist id="coins">
+
+            {coins.map((item,index)=>(
+              <option key={index} value={item.name} />
+            ))}
+
+          </datalist>
+
+
+
           <button type="submit">Search</button>
         </form>
       </div>
@@ -49,7 +63,8 @@ const Home = () => {
         </div>
         {
           displayCoin.slice(0,10).map((item,index)=>(
-            <div className="table_layout" key={index}>
+            //using slice to limit the number of coins displayed
+            <Link to={`/coin/${item.id}`} className="table_layout" key={index}>
               <p>{item.market_cap_rank}</p>
               <div>
                 <img src={item.image} alt="" />
@@ -63,7 +78,7 @@ const Home = () => {
                 </p>
 
               <p className='marketCap'>{currency.symbol} {item.market_cap.toLocaleString()}</p>
-            </div>
+            </Link>
 
           ))
         }
