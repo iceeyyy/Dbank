@@ -19,6 +19,7 @@ const Coin = () => {
     };
     
     fetch(`https://api.coingecko.com/api/v3/coins/${coinId}`, options)
+    
       .then(res => res.json())
       .then(res => setCoinData(res))
       .catch(err => console.error(err));
@@ -39,8 +40,9 @@ const Coin = () => {
   React.useEffect(()=>{
     fetchCoinData();
     fetchHistoricalData();
-  },[currency])
+  },[currency,coinId])
 
+  console.log('Currency:', currency.name);
   if(coinData && HistoricalData){
     return (
       <div className='coin'>
@@ -63,26 +65,42 @@ const Coin = () => {
             <li>
               Current Price
             </li>
-            <li>{currency.symbol} {coinData.market_data.current_price[currency.name].toLocaleString()}</li>
+            <li>{currency.symbol} {
+            coinData?.market_data?.current_price[currency.name]
+            ? coinData.market_data.current_price[currency.name].toLocaleString()
+            :'N/A'
+             }</li>
           </ul>
 
           <ul>
             <li>
               Market Cap
             </li>
-            <li>{currency.symbol} {coinData.market_data.market_cap[currency.name].toLocaleString()}</li>
+            <li>{currency.symbol} {
+            coinData?.market_data?.market_cap[currency.name]
+            ?coinData.market_data.market_cap[currency.name].toLocaleString()
+            :'N/A'
+            }</li>
           </ul>
           <ul>
             <li>
               24H High
             </li>
-            <li>{currency.symbol} {coinData.market_data.high_24h[currency.name].toLocaleString()}</li>
+            <li>{currency.symbol} {
+               coinData?.market_data?.high_24h?.[currency.name]
+               ? coinData.market_data.high_24h[currency.name].toLocaleString()
+               : 'N/A' 
+              }</li>
           </ul>
           <ul>
             <li>
               24H Low
             </li>
-            <li>{currency.symbol} {coinData.market_data.low_24h[currency.name].toLocaleString()}</li>
+            <li>{currency.symbol} {
+                 coinData?.market_data?.low_24h?.[currency.name]
+                ? coinData.market_data.low_24h[currency.name].toLocaleString()
+                : 'N/A'
+                }</li>
           </ul>
 
         </div>
@@ -93,7 +111,7 @@ else{
   return (
     <div className='spinner'>
       <div className="spin">
-
+      
       </div>
     </div>
     

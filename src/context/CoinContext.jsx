@@ -6,7 +6,7 @@ const CoinContextProvider = (props) => {
 
     const [coins, setCoins] = React.useState([]);
     const [currency, setCurrency] = React.useState({
-        name: "USD",
+        name: "usd",
         symbol: "$",
     });
 
